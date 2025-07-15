@@ -97,10 +97,30 @@ export default function BcryptGenerator() {
 
   const copyToClipboard = async (text: string) => {
     try {
-      await document.execCommand("copy"); // Using document.execCommand for clipboard copy
+      // Create a temporary textarea element
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      // Make it invisible and outside the viewport to not affect layout
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      textarea.style.left = "-9999px";
+      textarea.style.top = "-9999px";
+      document.body.appendChild(textarea);
+
+      // Select the text in the temporary textarea
+      textarea.focus();
+      textarea.select();
+
+      // Execute the copy command
+      document.execCommand("copy");
+
+      // Remove the temporary textarea
+      document.body.removeChild(textarea);
+
       toast.success("Hash copied to clipboard."); // Using sonner's toast.success
     } catch (err) {
       // Changed error to err to avoid ESLint warning
+      console.error("Failed to copy to clipboard:", err); // Log the error for debugging
       toast.error("Failed to copy to clipboard."); // Using sonner's toast.error
     }
   };
