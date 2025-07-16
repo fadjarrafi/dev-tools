@@ -34,6 +34,7 @@ class PermissionSeeder extends Seeder
             'permissions.delete',
 
             'hash.view',
+            'roles.edit.core',
         ];
 
         foreach ($permissions as $permission) {
