@@ -16,3 +16,4 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__ . '/settings.php';
 require __DIR__ . '/auth.php';
 require __DIR__ . '/hash.php';
+require __DIR__ . '/tree.php';

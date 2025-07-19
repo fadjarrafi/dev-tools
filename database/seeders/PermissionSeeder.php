@@ -34,6 +34,8 @@ class PermissionSeeder extends Seeder
             'permissions.delete',
 
             'hash.view',
+            'tree.view',
+
             'roles.edit.core',
         ];
 
