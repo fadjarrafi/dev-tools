@@ -15,11 +15,7 @@ import {
 } from "@/components/ui/collapsible";
 import { type NavItem, type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import {
-  ChevronRight,
-  Hash,
-  FolderTree,
-} from "lucide-react";
+import { ChevronRight, Hash, FolderTree, StickyNote } from "lucide-react";
 
 interface NavSubItem {
   title: string;
@@ -60,6 +56,13 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
     //   permission: "base64.view",
     //   href: "/tools/base64",
     // },
+
+    {
+      title: "Notes",
+      icon: StickyNote,
+      permission: "notes.view",
+      href: "/notes",
+    },
 
     // Tool groups (with sub-items)
     {

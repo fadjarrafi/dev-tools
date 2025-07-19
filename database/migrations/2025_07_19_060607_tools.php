@@ -18,6 +18,16 @@ return new class extends Migration
             $table->text('generated_tree');
             $table->timestamps();
         });
+
+        Schema::create('notes', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->longText('content');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+
+            $table->index(['user_id', 'created_at']);
+        });
     }
 
     /**
@@ -26,5 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('trees');
+        Schema::dropIfExists('notes');
     }
 };

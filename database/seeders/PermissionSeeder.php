@@ -33,8 +33,17 @@ class PermissionSeeder extends Seeder
             'permissions.edit',
             'permissions.delete',
 
+            // Hash Tools
             'hash.view',
+
+            // Tree Tools
             'tree.view',
+
+            // Note Tools
+            'notes.view',
+            'notes.create',
+            'notes.edit',
+            'notes.delete',
 
             'roles.edit.core',
         ];
