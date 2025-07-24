@@ -15,7 +15,13 @@ import {
 } from "@/components/ui/collapsible";
 import { type NavItem, type SharedData } from "@/types";
 import { Link, usePage } from "@inertiajs/react";
-import { ChevronRight, Hash, FolderTree, StickyNote } from "lucide-react";
+import {
+  ChevronRight,
+  Hash,
+  FolderTree,
+  StickyNote,
+  FolderKanban,
+} from "lucide-react";
 
 interface NavSubItem {
   title: string;
@@ -62,6 +68,12 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
       icon: StickyNote,
       permission: "notes.view",
       href: "/notes",
+    },
+    {
+      title: "Kanban Board",
+      icon: FolderKanban,
+      permission: "kanban.view",
+      href: "/kanban",
     },
 
     // Tool groups (with sub-items)

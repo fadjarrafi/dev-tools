@@ -45,6 +45,12 @@ class PermissionSeeder extends Seeder
             'notes.edit',
             'notes.delete',
 
+            // Kanban Board
+            'kanban.view',
+            'kanban.create',
+            'kanban.edit',
+            'kanban.delete',
+
             'roles.edit.core',
         ];
 

@@ -28,6 +28,53 @@ return new class extends Migration
 
             $table->index(['user_id', 'created_at']);
         });
+
+        Schema::create('kanban_projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->boolean('is_archived')->default(false);
+            $table->timestamps();
+        });
+
+        Schema::create('kanban_boards', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('project_id')->constrained('kanban_projects')->onDelete('cascade');
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('kanban_columns', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('board_id')->constrained('kanban_boards')->onDelete('cascade');
+            $table->string('name');
+            $table->integer('sort_order')->default(0);
+            $table->string('color')->default('#6b7280'); // Default gray color
+            $table->timestamps();
+        });
+
+        Schema::create('kanban_tasks', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('column_id')->constrained('kanban_columns')->onDelete('cascade');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->enum('priority', ['Low', 'Medium', 'High', 'Critical'])->default('Medium');
+            $table->json('tags')->nullable(); // Store tags as JSON array
+            $table->date('due_date')->nullable();
+            $table->integer('sort_order')->default(0);
+            $table->timestamps();
+        });
+
+        Schema::create('kanban_task_attachments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('task_id')->constrained('kanban_tasks')->onDelete('cascade');
+            $table->string('filename'); // Original filename
+            $table->string('path'); // Storage path
+            $table->string('mime_type');
+            $table->integer('size'); // File size in bytes
+            $table->timestamps();
+        });
     }
 
     /**
@@ -37,5 +84,10 @@ return new class extends Migration
     {
         Schema::dropIfExists('trees');
         Schema::dropIfExists('notes');
+        Schema::dropIfExists('kanban_projects');
+        Schema::dropIfExists('kanban_boards');
+        Schema::dropIfExists('kanban_columns');
+        Schema::dropIfExists('kanban_tasks');
+        Schema::dropIfExists('kanban_task_attachments');
     }
 };
