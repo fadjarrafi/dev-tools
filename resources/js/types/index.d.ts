@@ -178,3 +178,21 @@ export interface TaskMoveData {
   column_id: number;
   sort_order: number;
 }
+
+// Migration Generator Types
+export interface MigrationGenerator {
+    id: number;
+    name: string;
+    sql_schema: string;
+    generated_migration: string;
+    migration_file_path?: string;
+    status: 'generated' | 'saved' | 'error';
+    status_color: string;
+    created_at: string;
+    updated_at: string;
+    notes?: string;
+    creator?: {
+        id: number;
+        name: string;
+    };
+}

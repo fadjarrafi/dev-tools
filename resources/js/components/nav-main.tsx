@@ -21,6 +21,7 @@ import {
   FolderTree,
   StickyNote,
   FolderKanban,
+  Database,
 } from "lucide-react";
 
 interface NavSubItem {
@@ -102,6 +103,12 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
           permission: "tree.view",
         },
       ],
+    },
+    {
+      title: "Migration Generator",
+      icon: Database,
+      permission: "migration.view",
+      href: "/tools/migration-generator",
     },
   ];
 

@@ -75,6 +75,23 @@ return new class extends Migration
             $table->integer('size'); // File size in bytes
             $table->timestamps();
         });
+
+        Schema::create('migration_generators', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->longText('sql_schema');
+            $table->longText('generated_migration');
+            $table->string('migration_file_path')->nullable();
+            $table->enum('status', ['generated', 'saved', 'error'])->default('generated');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->text('notes')->nullable();
+            $table->timestamps();
+
+            // Indexes
+            $table->index(['created_by', 'created_at']);
+            $table->index('status');
+            $table->index('name');
+        });
     }
 
     /**
@@ -89,5 +106,6 @@ return new class extends Migration
         Schema::dropIfExists('kanban_columns');
         Schema::dropIfExists('kanban_tasks');
         Schema::dropIfExists('kanban_task_attachments');
+        Schema::dropIfExists('migration_generators');
     }
 };

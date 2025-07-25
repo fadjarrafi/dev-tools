@@ -51,6 +51,11 @@ class PermissionSeeder extends Seeder
             'kanban.edit',
             'kanban.delete',
 
+            // migration generator permissions
+            'migration.view',
+            'migration.create',
+            'migration.delete',
+
             'roles.edit.core',
         ];
 

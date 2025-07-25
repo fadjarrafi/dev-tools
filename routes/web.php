@@ -19,3 +19,4 @@ require __DIR__ . '/hash.php';
 require __DIR__ . '/tree.php';
 require __DIR__ . '/notes.php';
 require __DIR__ . '/kanban.php';
+require __DIR__ . '/migration-generator.php';
