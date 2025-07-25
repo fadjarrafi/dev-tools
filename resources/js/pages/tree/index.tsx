@@ -325,8 +325,8 @@ export default function TreeGenerator({ savedTrees }: TreeGeneratorProps) {
             <CardHeader>
               <CardTitle className="text-base">Input Structure</CardTitle>
               <CardDescription>
-                Type your folder structure. Use tabs or spaces to indent child
-                folders.
+                Type your folder structure. Use Tab or spaces to indent child
+                folders. Press Tab to indent, Shift+Tab to unindent.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -341,6 +341,82 @@ export default function TreeGenerator({ savedTrees }: TreeGeneratorProps) {
     README.md"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Tab") {
+                    e.preventDefault();
+                    const textarea = e.target as HTMLTextAreaElement;
+                    const start = textarea.selectionStart;
+                    const end = textarea.selectionEnd;
+                    const value = textarea.value;
+
+                    if (e.shiftKey) {
+                      // Shift+Tab: Remove indentation
+                      const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+                      const lineText = value.slice(lineStart, start);
+
+                      if (lineText.startsWith("    ")) {
+                        // Remove 4 spaces
+                        const newValue =
+                          value.slice(0, lineStart) +
+                          value.slice(lineStart + 4);
+                        setContent(newValue);
+
+                        // Restore cursor position
+                        setTimeout(() => {
+                          textarea.selectionStart = textarea.selectionEnd =
+                            start - 4;
+                        });
+                      } else if (lineText.startsWith("\t")) {
+                        // Remove tab
+                        const newValue =
+                          value.slice(0, lineStart) +
+                          value.slice(lineStart + 1);
+                        setContent(newValue);
+
+                        // Restore cursor position
+                        setTimeout(() => {
+                          textarea.selectionStart = textarea.selectionEnd =
+                            start - 1;
+                        });
+                      }
+                    } else {
+                      // Tab: Add indentation
+                      if (start === end) {
+                        // No selection - insert tab at cursor
+                        const newValue =
+                          value.slice(0, start) + "    " + value.slice(end);
+                        setContent(newValue);
+
+                        // Move cursor after the inserted tab
+                        setTimeout(() => {
+                          textarea.selectionStart = textarea.selectionEnd =
+                            start + 4;
+                        });
+                      } else {
+                        // Text selected - indent all selected lines
+                        const selectedText = value.slice(start, end);
+                        const lines = selectedText.split("\n");
+                        const indentedLines = lines.map(
+                          (line) => "    " + line
+                        );
+                        const newSelectedText = indentedLines.join("\n");
+
+                        const newValue =
+                          value.slice(0, start) +
+                          newSelectedText +
+                          value.slice(end);
+                        setContent(newValue);
+
+                        // Restore selection with adjusted positions
+                        setTimeout(() => {
+                          textarea.selectionStart = start;
+                          textarea.selectionEnd =
+                            start + newSelectedText.length;
+                        });
+                      }
+                    }
+                  }
+                }}
                 className="min-h-[400px] font-mono text-sm"
               />
             </CardContent>
