@@ -196,3 +196,13 @@ export interface MigrationGenerator {
         name: string;
     };
 }
+
+export interface ExcalidrawSketch {
+    id: number;
+    user_id: number;
+    name: string;
+    data?: string | null; // Stored as JSON string
+    created_at: string;
+    updated_at: string;
+    user?: User;
+}

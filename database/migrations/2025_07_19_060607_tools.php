@@ -92,6 +92,14 @@ return new class extends Migration
             $table->index('status');
             $table->index('name');
         });
+
+        Schema::create('excalidraw_sketches', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('name');
+            $table->json('data')->nullable(); // To store Excalidraw JSON data
+            $table->timestamps();
+        });
     }
 
     /**
@@ -107,5 +115,6 @@ return new class extends Migration
         Schema::dropIfExists('kanban_tasks');
         Schema::dropIfExists('kanban_task_attachments');
         Schema::dropIfExists('migration_generators');
+        Schema::dropIfExists('excalidraw_sketches');
     }
 };

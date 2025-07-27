@@ -56,6 +56,12 @@ class PermissionSeeder extends Seeder
             'migration.create',
             'migration.delete',
 
+            // Excalidraw
+            'excalidraw.view',
+            'excalidraw.create',
+            'excalidraw.edit',
+            'excalidraw.delete',
+
             'roles.edit.core',
         ];
 

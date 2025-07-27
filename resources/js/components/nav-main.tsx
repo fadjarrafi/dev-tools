@@ -22,6 +22,7 @@ import {
   StickyNote,
   FolderKanban,
   Database,
+  Brush,
 } from "lucide-react";
 
 interface NavSubItem {
@@ -75,6 +76,12 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
       icon: FolderKanban,
       permission: "kanban.view",
       href: "/kanban",
+    },
+    {
+      title: "Excalidraw", // New item for Excalidraw
+      icon: Brush, // Choose an appropriate icon
+      permission: "excalidraw.view", // Define a permission for Excalidraw
+      href: "/excalidraw",
     },
 
     // Tool groups (with sub-items)
