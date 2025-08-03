@@ -1,0 +1,18 @@
+services:
+  app:
+    image: dev-tools:0.5.0
+    container_name: dev-tools
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - dev-tools_storage:/var/www/storage
+      - dev-tools_cache:/var/www/bootstrap/cache
+      - dev-tools_logs:/var/log
+    restart: unless-stopped
+
+volumes:
+  dev-tools_storage:
+  dev-tools_cache:
+  dev-tools_logs:
