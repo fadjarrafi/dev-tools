@@ -23,6 +23,7 @@ import {
   FolderKanban,
   Database,
   Brush,
+  Briefcase,
 } from "lucide-react";
 
 interface NavSubItem {
@@ -116,6 +117,12 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
       icon: Database,
       permission: "migration.view",
       href: "/tools/migration-generator",
+    },
+    {
+      title: "Job Applications",
+      icon: Briefcase,
+      permission: "jobs.view",
+      href: "/jobs",
     },
   ];
 

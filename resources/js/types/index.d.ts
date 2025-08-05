@@ -206,3 +206,39 @@ export interface ExcalidrawSketch {
     updated_at: string;
     user?: User;
 }
+
+// Job Application Interfaces
+export interface JobApplication {
+    id: number;
+    user_id: number;
+    company_name: string;
+    position_title: string;
+    location: string | null;
+    salary_range: string | null;
+    job_type: string;
+    status: string;
+    application_date: string;
+    deadline: string | null;
+    job_description: string | null;
+    notes: string | null;
+    status_color: string;
+    is_in_progress: boolean;
+    is_completed: boolean;
+    created_at: string;
+    updated_at: string;
+    histories?: JobApplicationHistory[];
+}
+
+export interface JobApplicationHistory {
+    id: number;
+    job_application_id: number;
+    field_changed: string;
+    old_value: string | null;
+    new_value: string | null;
+    changed_at: string;
+    formatted_field_name: string;
+    formatted_old_value: string;
+    formatted_new_value: string;
+    created_at: string;
+    updated_at: string;
+}
