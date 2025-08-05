@@ -56,8 +56,12 @@ export default function JobsEdit({ application, statuses, jobTypes }: Props) {
     salary_range: application.salary_range || "",
     job_type: application.job_type,
     status: application.status,
-    application_date: application.application_date,
-    deadline: application.deadline || "",
+    application_date: application.application_date
+      ? new Date(application.application_date).toISOString().split("T")[0]
+      : "",
+    deadline: application.deadline
+      ? new Date(application.deadline).toISOString().split("T")[0]
+      : "",
     job_description: application.job_description || "",
     notes: application.notes || "",
   });
